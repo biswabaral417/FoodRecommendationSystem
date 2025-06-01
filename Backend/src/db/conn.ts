@@ -11,6 +11,7 @@ const pool = new Pool({
   port: parseInt(process.env.DB_PORT || '5432'),
 });
 
+
 console.log({
   DB_USER: process.env.DB_USER,
   DB_PASSWORD: process.env.DB_PASSWORD,
@@ -29,4 +30,6 @@ export default async function connectDB() {
     throw err;
   }
 }
+connectDB()
 export  {pool}
+

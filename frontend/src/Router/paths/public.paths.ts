@@ -2,6 +2,6 @@
 
 
 export const publicPaths = {
-  home: "/home",
+  home: "/",
   about: "/about",
 };

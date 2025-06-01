@@ -1,10 +1,11 @@
-const express = require('express')
-const router = express.Router()
+import sortFoods from '../controller/foods/sortedFoods'
+import { Router } from 'express'
+// import esewaRoutes from './esewaRoutes'
+import foodroutes from './foodRoutes'
+const router = Router()
 
-const foodRoutes = require('./foodRoutes')
-const esewaRoutes = require('./esewaRoutes')
-router.use('/foods', foodRoutes)
-router.use('/esewa', esewaRoutes)
+router.use('/foods', foodroutes)
+// router.use('esewa', esewaRoutes)
 
 
 export default router

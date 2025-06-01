@@ -1,4 +1,4 @@
-version: '3.9'  # changed from 3.8 to 3.9 for profile support
+# version: '3.9'  # changed from 3.8 to 3.9 for profile support
 
 services:
   postgres:
@@ -15,6 +15,7 @@ services:
       - pgdata:/var/lib/postgresql/data
     networks:
       - app-network
+
 
   backend:
     build: ./backend
@@ -34,7 +35,7 @@ services:
       - app-network
 
   frontend:
-    build: ./food-recomendation-system-frontend
+    build: ./frontend
     container_name: frontend
     profiles:
       - frontend

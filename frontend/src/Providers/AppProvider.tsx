@@ -3,6 +3,7 @@ import React, { useContext } from 'react';
 
 
 import RouteProvider from './RouteProvider';
+import { AuthProvider } from './AuthProvider';
 
 
 
@@ -13,9 +14,11 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
 
     return (
         <AppContext.Provider value={{}}>
-            <RouteProvider>
-                {children}
-            </RouteProvider>
+            <AuthProvider>
+                <RouteProvider>
+                    {children}
+                </RouteProvider>
+            </AuthProvider>
         </AppContext.Provider>
     )
 

@@ -1,47 +1,67 @@
 import React, { createContext, useContext, useEffect, useState } from 'react'
-import type { User } from '../Types/UserDetails';
+import type { User } from '../Types/UserDetails'
+import { getCookie } from '../utils/cookies/getLocalCookies'
 
-const AuthContext = createContext<any>(null)
-
-
-
-
+const AuthContext = createContext<{
+    localUser: User | null;
+    setLocalUser: React.Dispatch<React.SetStateAction<User | null>>;
+    accessToken: string | null;
+    setAccessToken: React.Dispatch<React.SetStateAction<string | null>>;
+    refreshToken: string | null;
+    setRefreshToken: React.Dispatch<React.SetStateAction<string | null>>;
+} | null>(null)
 
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-    // check if user has locally stored user data
-    const [localUser, setLocalUser] = useState<User>(localStorage.getItem('user') ?
-        JSON.parse(localStorage.getItem('user')!) : null)
+    const [localUser, setLocalUser] = useState<User | null>(() => {
+        const userFromStorage = localStorage.getItem('user');
+        return userFromStorage ? JSON.parse(userFromStorage) : null;
+    });
 
-    //check for cookies stored
-   
+    const [accessToken, setAccessToken] = useState<string | null>(() => getCookie('accessToken'));
+    const [refreshToken, setRefreshToken] = useState<string | null>(() => getCookie('refreshToken'));
 
-
-
-    if (!localUser) {
-        localStorage.setItem('user', JSON.stringify({}));
-        setLocalUser({
-            isAuthenticated: false,
-            userDetails: {
-                name: '',
-                email: '',
-                phone: '',
-                address: '',
-            },
-            currentSession: {
-                cart: [],
-                wishlist: [],
-            }
-        });
-    }
+    // Initialize user if none exists
     useEffect(() => {
-        if (localUser) {
-            // setLocalUser();
+        if (!localUser) {
+            const defaultUser: User = {
+                isAuthenticated: false,
+                userDetails: {
+                    name: '',
+                    email: '',
+                    phone: '',
+                    address: '',
+                },
+                currentSession: {
+                    cart: [],
+                    wishlist: [],
+                }
+            };
+            localStorage.setItem('user', JSON.stringify(defaultUser));
+            setLocalUser(defaultUser);
         }
+    }, []);
 
-    }, [localUser])
+    // If tokens exist, mark user as authenticated
+    useEffect(() => {
+        if (accessToken && refreshToken && localUser && !localUser.isAuthenticated) {
+            const updatedUser = {
+                ...localUser,
+                isAuthenticated: true
+            };
+            localStorage.setItem('user', JSON.stringify(updatedUser));
+            setLocalUser(updatedUser);
+        }
+    }, [accessToken, refreshToken]);
 
     return (
-        <AuthContext.Provider value={{}}>
+        <AuthContext.Provider value={{
+            localUser,
+            setLocalUser,
+            accessToken,
+            setAccessToken,
+            refreshToken,
+            setRefreshToken
+        }}>
             {children}
         </AuthContext.Provider>
     )
@@ -50,10 +70,9 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 const useAuth = () => {
     const context = useContext(AuthContext)
     if (!context) {
-        throw new Error("Auth context must be inside Auth Provided")
+        throw new Error("useAuth must be used within an AuthProvider")
     }
     return context
 }
 
 export default useAuth
-

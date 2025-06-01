@@ -1,19 +1,14 @@
-// // src/router/protected.routes.tsx
-// import { lazy } from "react";
-// import { createRoute } from "./createRoute";
-// import { protectedPaths } from "./paths";
-// import PrivateLayout from "@/layouts/PrivateLayout";
+// src/router/protected.routes.tsx
+import { lazy } from "react";
 
-// const Dashboard = lazy(() => import("@/pages/protected/Dashboard"));
-// const Settings = lazy(() => import("@/pages/protected/Settings"));
+const NotFound = lazy(() => import("../../core/components/NotFound/NotFound"));
+import ErrorBoundary from "../../core/components/boundry/ErrorBoundry";
+import { createRoute } from "../CreateRoutes";
 
-// export const protectedRoutes = [
-//   createRoute({
-//     path: protectedPaths.dashboard,
-//     element: PrivateLayout,
-//     children: [
-//       createRoute({ path: protectedPaths.dashboard, element: Dashboard }),
-//       createRoute({ path: protectedPaths.settings, element: Settings }),
-//     ],
-//   }),
-// ];
+export const protectedRoutes = [
+    createRoute({
+        path: "*",
+        element: NotFound,
+        errorElement: <ErrorBoundary />
+    }),]
+

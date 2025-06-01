@@ -1,6 +1,9 @@
-const express = require('express');
-// create foods routes 
-const router = express.Router();
+import { Router } from 'express';
+// const express = require('express');
 import sortFoods from '../controller/foods/sortedFoods';
-router.get('/sortedFoods', sortFoods);
-export default router;
+// const sortFoods=require('../controller/foods/sortedFoods');
+const foodRoutes = Router();
+
+foodRoutes.get('/sorted_foods', sortFoods);
+
+export default foodRoutes;
