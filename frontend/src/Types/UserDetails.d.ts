@@ -12,4 +12,5 @@ export interface User{
                 isAuthenticated: boolean,
                 userDetails: userDetails,
                 currentSession: currentSession, 
+                isAdmin?: boolean,
 }

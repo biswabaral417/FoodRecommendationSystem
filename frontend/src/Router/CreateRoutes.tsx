@@ -4,9 +4,9 @@ import type { RouteObject } from "react-router-dom";
 import ErrorBoundary from "../core/components/boundry/ErrorBoundry";
 
 export interface CreateRouteProps extends Omit<RouteObject, "element" | "index" | "children"> {
-    element?: React.LazyExoticComponent<React.FC>;
-    layout?: React.ComponentType;  // <-- Accept component type, not element instance
-    children?: RouteObject[];
+  element?: React.LazyExoticComponent<React.ComponentType<any>>;
+  layout?: React.ComponentType<any>;
+  children?: RouteObject[];
 }
 
 export function createRoute({ element, layout, children, ...rest }: CreateRouteProps): RouteObject {

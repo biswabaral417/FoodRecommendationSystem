@@ -1,22 +1,26 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState, type SetStateAction, } from 'react';
 
 
 
 import RouteProvider from './RouteProvider';
 import { AuthProvider } from './AuthProvider';
+import { CartProvider } from './CartProvider';
 
 
 
 
-const AppContext = React.createContext<any | undefined>(undefined);
+const AppContext = React.createContext<{ modalWrapperVis: boolean, setModalWrapperVis: React.Dispatch<SetStateAction<boolean>> } | undefined>(undefined);
 
 export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+    const [modalWrapperVis, setModalWrapperVis] = useState<boolean>(false)
 
     return (
-        <AppContext.Provider value={{}}>
+        <AppContext.Provider value={{ modalWrapperVis, setModalWrapperVis }}>
             <AuthProvider>
                 <RouteProvider>
-                    {children}
+                    <CartProvider>
+                        {children}
+                    </CartProvider>
                 </RouteProvider>
             </AuthProvider>
         </AppContext.Provider>
@@ -24,11 +28,11 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
 
 }
 
-const useAppProvider = () => {
+const useAppContext = () => {
     const context = useContext(AppContext)
     if (!context) {
         throw new Error('Providers must be used within a AppProvider');
     }
     return context
 }
-export default useAppProvider
+export default useAppContext

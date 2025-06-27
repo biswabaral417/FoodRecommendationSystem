@@ -7,4 +7,3 @@ const startServer = (app: Application, port: number | string) => {
 };
 
 export default startServer;
-

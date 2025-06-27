@@ -4,7 +4,8 @@ import { createRoute } from "../CreateRoutes";
 import { publicPaths } from "../paths/public.paths";
 
 const Home = lazy(() => import("../../pages/public/home/index"));
-const SignUp = lazy(() => import("../../pages/auth/signUp"))
+const MyCart = lazy(() => import("../../pages/public/myCart"))
+const About = lazy(() => import("../../pages/public/about"));
 
 const NotFound = lazy(() => import("../../core/components/NotFound/NotFound"))
 import ErrorBoundary from "../../core/components/boundry/ErrorBoundry";
@@ -18,11 +19,12 @@ export const publicRoutes = [
         errorElement: <ErrorBoundary />
     }),
     createRoute({
-        path: publicPaths.home, 
+        path: publicPaths.home,
         layout: PublicLayout,
         children: [
             createRoute({ path: publicPaths.home, element: Home }),
-            createRoute({ path: publicPaths.about, element: SignUp }),
+            createRoute({ path: publicPaths.about, element: About }),
+            createRoute({ path: publicPaths.myCart, element: MyCart })
         ]
 
     }),

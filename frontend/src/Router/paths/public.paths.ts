@@ -4,4 +4,5 @@
 export const publicPaths = {
   home: "/",
   about: "/about",
+  myCart:"/my_cart"
 };

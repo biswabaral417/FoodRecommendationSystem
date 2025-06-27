@@ -1,5 +1,0 @@
-CREATE TABLE orders (
-  id SERIAL PRIMARY KEY,
-  food_id INT REFERENCES foods(id),
-  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);

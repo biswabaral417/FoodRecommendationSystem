@@ -1,12 +1,12 @@
 // src/layouts/PublicLayout.tsx
-import React from 'react';
 import Header from '../nav/Header';
 import { Outlet } from 'react-router-dom';
+import NavItems from '../../../utils/navbar/BasicNavItems';
 
 const PublicLayout = () => {
     return (
         <>
-            <Header />
+            <Header NavItems={NavItems}/>
             <main><Outlet /></main>
         </>
     );

@@ -1,16 +1,15 @@
 import React from 'react'
 import NavLink from '../../../components/atoms/Nav/NavLink'
-import NavItems from '../../../../utils/navbar/NavItems'
+import LoginOrSignup from './LoginOrSignup'
 
-const Nav = () => {
+const Nav: React.FC<{ NavItems: NavItem[] }> = ({ NavItems }) => {
+
     return (
-        <nav>
-            <ul className='list-none flex p-4 bg-gray-100 rounded-lg shadow-md'>
+        <nav className=' bg-gray-100 rounded-lg shadow-md align-center'>
+            <ul className='list-none flex p-4 '>
 
                 {
                     NavItems.map((item, index) => (
-
-
                         < li key={`nav-item-${index}`} >
                             <NavLink
                                 key={index}
@@ -21,8 +20,9 @@ const Nav = () => {
 
                     ))
                 }
-            </ul >
 
+                <LoginOrSignup />
+            </ul >
         </nav >
     )
 }

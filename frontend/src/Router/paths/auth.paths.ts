@@ -2,6 +2,6 @@
 
 
 export const authPaths = {
-  login: "/login",
-  register: "/register",
+  login: "login",
+  register: "signup",
 };
