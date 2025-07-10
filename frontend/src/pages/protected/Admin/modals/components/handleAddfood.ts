@@ -1,0 +1,54 @@
+import addFood from "../../../../../Api/admin/addNewFood";
+
+
+type HandleAddFoodParams = {
+  formData: FormDataType;
+  toggle: () => void;
+  selTags: string[];
+  selWeatherTags: string[];
+};
+
+export const handleAddFood = ({ formData, toggle, selTags, selWeatherTags }: HandleAddFoodParams): void => {
+  const { name, cuisine, calories, fat, protein, carbs, price, image } = formData;
+
+  if (
+    !name.trim() ||
+    !cuisine.trim() ||
+    !image ||
+    !calories ||
+    !fat ||
+    !protein ||
+    !carbs ||
+    !price ||
+    selTags.length === 0 ||
+    selWeatherTags.length === 0
+  ) {
+    alert("Please fill in all fields and select tags.");
+    return;
+  }
+
+  const payload = {
+    name,
+    cuisine,
+    calories: Number(calories),
+    fat: Number(fat),
+    protein: Number(protein),
+    carbs: Number(carbs),
+    price: Number(price),
+    imageFile:image,
+    tags: selTags,
+    weatherTags: selWeatherTags,
+  };
+
+  // TODO: send `payload` to the backend
+  console.log("Payload to submit:", payload);
+  addFood(payload)
+
+  // Close the modal/form
+  /* The `toggle()` function is a callback function that is passed as a parameter to the
+  `handleAddFood` function. In this context, `toggle()` is used to close a modal or form after the
+  food data has been submitted. When `toggle()` is called, it triggers the action to close the modal
+  or form interface, providing a way to toggle the visibility of the form or modal between open and
+  closed states. */
+  // toggle();
+};

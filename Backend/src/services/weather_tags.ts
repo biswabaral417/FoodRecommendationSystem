@@ -10,3 +10,4 @@ const weather_tags = (weather_code: number): 'sunny' | 'cloudy' | 'rainy' => {
 };
 
 export default weather_tags;
+

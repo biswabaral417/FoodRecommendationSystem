@@ -14,7 +14,7 @@ const FoodCard: React.FC<FoodCardProps> = ({ food, isLoading }) => {
     if (!existingFood || existingFood.count === 0) {
       return (
         <button
-          className="bg-blue text-xl text-white w-full h-[40px]"
+          className="bg-blue text-xl text-white w-full h-[40px] cursor-pointer"
           onClick={() => addCart(id)}
         >
           add to cart

@@ -1,14 +1,11 @@
 import React, { createContext, useContext, useEffect, useState } from 'react'
 import type { User } from '../Types/UserDetails'
-import { getCookie } from '../utils/cookies/getLocalCookies'
+import { verifyRefresh } from '../Api/auth/auth'
 
 const AuthContext = createContext<{
     localUser: User | null;
     setLocalUser: React.Dispatch<React.SetStateAction<User | null>>;
-    accessToken: string | null;
-    setAccessToken: React.Dispatch<React.SetStateAction<string | null>>;
-    refreshToken: string | null;
-    setRefreshToken: React.Dispatch<React.SetStateAction<string | null>>;
+
 } | null>(null)
 
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
@@ -17,16 +14,16 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         return userFromStorage ? JSON.parse(userFromStorage) : null;
     });
 
-    const [accessToken, setAccessToken] = useState<string | null>(() => getCookie('accessToken'));
-    const [refreshToken, setRefreshToken] = useState<string | null>(() => getCookie('refreshToken'));
 
-    // Initialize user if none exists
+    // Initialize localUser if not present
     useEffect(() => {
         if (!localUser) {
             const defaultUser: User = {
                 isAuthenticated: false,
                 userDetails: {
-                    name: '',
+                    fname: '',
+                    lname: '',
+                    imageUrl: '',
                     email: '',
                     phone: '',
                     address: '',
@@ -41,38 +38,49 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         }
     }, []);
 
-    // If tokens exist, mark user as authenticated
+    // Verify refresh token to maintain persistent login
     useEffect(() => {
-        if (accessToken && refreshToken && localUser && !localUser.isAuthenticated) {
-            const updatedUser = {
-                ...localUser,
-                isAuthenticated: true
-            };
-            localStorage.setItem('user', JSON.stringify(updatedUser));
-            setLocalUser(updatedUser);
-        }
-    }, [accessToken, refreshToken]);
+        console.log('AuthProvider mounted, checking refresh token...');
+        const checkRefresh = async () => {
+            try {
+                console.log('Checking refresh token...');
+                const response = await verifyRefresh();
+                if (response.loggedIn && response.user) {
+                    const updatedUser: User = {
+                        currentSession: localUser?.currentSession || { cart: [], wishlist: [] },
+                        userDetails: response.user,
+                        isAuthenticated: response.loggedIn,
+                    };
+
+                    localStorage.setItem('user', JSON.stringify(updatedUser));
+                    setLocalUser(updatedUser);
+                }
+            } catch (err) {
+                console.error('Refresh token verification failed:', err);
+            }
+
+        };
+
+        checkRefresh();
+    }, []);
 
     return (
         <AuthContext.Provider value={{
             localUser,
             setLocalUser,
-            accessToken,
-            setAccessToken,
-            refreshToken,
-            setRefreshToken
+
         }}>
             {children}
         </AuthContext.Provider>
-    )
+    );
 }
 
 const useAuth = () => {
-    const context = useContext(AuthContext)
+    const context = useContext(AuthContext);
     if (!context) {
-        throw new Error("useAuth must be used within an AuthProvider")
+        throw new Error("useAuth must be used within an AuthProvider");
     }
-    return context
-}
+    return context;
+};
 
-export default useAuth
+export default useAuth;

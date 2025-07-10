@@ -71,10 +71,24 @@ export class Food implements FoodItem {
         const res = await pool.query(getAllQuery);
         return res.rows.map(Food.fromRow);
     }
-    static async getTopOrdered(limit: number = 10): Promise<Food[]> {
+    static async getTopOrdered(limit: number = 10): Promise<{ id: number; order_count: number }[]> {
         const res = await pool.query(getTopOrdered, [limit]);
+        return res.rows;
+    }
+    static async getPriceByFoodIds(foodIds: number[]): Promise<Food[] | null> {
+        if (foodIds.length === 0) return null;
+
+        const res = await pool.query(
+            "SELECT * FROM foods WHERE id = ANY($1)",
+            [foodIds]
+        );
+
+        if (res.rows.length === 0) return null;
+
         return res.rows.map(Food.fromRow);
     }
+
+
     static async getFoodsByWeatherTag(tag: string): Promise<Food[]> {
         const res = await pool.query(getFoodsByWeatherTag, [tag]);
         return res.rows.map(Food.fromRow);

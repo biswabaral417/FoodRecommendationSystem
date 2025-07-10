@@ -6,26 +6,37 @@ type AddFoodPayload = {
     name: string;
     cuisine: string;
     calories: number;
-    imageUrl: string;
+    imageFile: File;
     fat: number;
     protein: number;
     carbs: number;
     price: number;
 };
 
-
 const addNewFood = async (payload: AddFoodPayload) => {
-    const res = await instance.post('/admin/add_food', payload);
+    const form = new FormData();
+    form.append('name', payload.name);
+    form.append('cuisine', payload.cuisine);
+    form.append('calories', payload.calories.toString());
+    form.append('fat', payload.fat.toString());
+    form.append('protein', payload.protein.toString());
+    form.append('carbs', payload.carbs.toString());
+    form.append('price', payload.price.toString());
+    form.append('tags', JSON.stringify(payload.tags));
+    form.append('weatherTags', JSON.stringify(payload.weatherTags));
+    form.append('image', payload.imageFile);
+
+    const res = await instance.post('/admin/add_food', form);
     return res.data;
 };
 
 export const addFood = async (data: AddFoodPayload) => {
     try {
         const json = await addNewFood(data);
-        console.log(json);
         return json;
     } catch (error) {
         console.error("Failed to add food:", error);
         throw error;
     }
 };
+export default addFood;

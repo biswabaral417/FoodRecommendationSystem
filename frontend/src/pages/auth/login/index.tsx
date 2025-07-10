@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { Eye, EyeOff } from 'lucide-react'
+import { login } from '../../../Api/auth/login'
 
 interface LoginForm {
   email: string
@@ -32,6 +33,7 @@ const Login: React.FC = () => {
     e.preventDefault()
     if (validate()) {
       console.log('Logging in with', formData)
+      login(formData)
       // TODO: do login
     }
   }

@@ -2,7 +2,6 @@ import { Request, Response } from 'express';
 import { recommendFoods } from '../../services/RecommendFoods';
 import { fetchCurrentWeather } from '../../utils/fetchCurrentWeather';
 import { generateWeatherTags } from '../../services/generater_tags';
-import { constrainedMemory } from 'process';
 
 
 const sortFoods = async (req: Request, res: Response): Promise<any> => {

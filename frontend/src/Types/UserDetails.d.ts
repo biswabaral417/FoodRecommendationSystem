@@ -1,5 +1,7 @@
 export  interface userDetails {
-                name: string,
+                fname: string,
+                lname: string,
+                imageUrl: string,
                 email: string,
                 phone: string,
                 address: string,

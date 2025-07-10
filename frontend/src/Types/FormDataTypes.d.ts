@@ -1,10 +1,10 @@
-  type FormDataType = {
-    name: string;
-    cuisine: string;
-    calories: string | undefined;
-    imageUrl: string;
-    fat: string | undefined;
-    protein: string | undefined;
-    carbs: string | undefined;
-    price: string | undefined;
-  };
+type FormDataType = {
+  name: string;
+  cuisine: string;
+  calories: string ;
+  image: File | null;
+  fat: string ;
+  protein: string ;
+  carbs: string ;
+  price: string ;
+};

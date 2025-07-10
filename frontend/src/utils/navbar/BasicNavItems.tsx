@@ -17,6 +17,29 @@ const NavItems: NavItem[] = [
         isProtedted: false,
     },
     {
+        title: 'about',
+        path: '/about',
+        icon: <Info />,
+        isProtedted: false,
+    },
+
+]
+
+
+export const protectedNavItems: NavItem[] = [
+    {
+        title: 'Home',
+        path: '/',
+        icon: <Home />,
+        isProtedted: false,
+    },
+    {
+        title: 'My Cart',
+        path: '/my_cart',
+        icon: <ShoppingCart />,
+        isProtedted: false,
+    },
+    {
         title: 'My Orders',
         path: '/my_orders',
         icon: <TruckElectric />,
@@ -27,7 +50,5 @@ const NavItems: NavItem[] = [
         path: '/about',
         icon: <Info />,
         isProtedted: false,
-    },
-
-]
+    },]
 export default NavItems;

@@ -1,6 +1,7 @@
 // src/utils/cookie.ts
 export const getCookie = (name: string): string | null => {
   const cookieString = document.cookie;
+  console.log("cookieString", cookieString);
   const cookies = cookieString.split("; ");
   for (const cookie of cookies) {
     const [key, value] = cookie.split("=");
