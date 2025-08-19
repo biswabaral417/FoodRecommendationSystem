@@ -28,7 +28,7 @@ export default async function connectDB() {
     return pool;
   } catch (err) {
     console.error('Failed to connect to PostgreSQL database:', err);
-    connectDB()
+    throw err;
   }
 }
 connectDB()
