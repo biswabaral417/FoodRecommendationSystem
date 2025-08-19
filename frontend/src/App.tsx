@@ -15,7 +15,8 @@ const App: React.FC<{}> = () => {
   
 
   const provideRoutes = () => {
-    const [isAdmin, setIsAdmin] = useState<boolean>(true)
+    // const [isAdmin, setIsAdmin] = useState<boolean>(true)
+    const [isAdmin] = useState<boolean>(true)
     if (isAdmin === true) {
       return [...adminRoutes];
     }

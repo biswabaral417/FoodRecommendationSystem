@@ -1,7 +1,7 @@
 import React from 'react'
 import { useAllFoods } from '../../../../Api/admin/useAllFoods';
 
-const DashBoard = () => {
+const DashBoard:React.FC = () => {
   const { data, isLoading, error } = useAllFoods();
   if (isLoading) return <div>Loading...</div>;
   if (error || !data) return <div>Error loading foods.</div>;

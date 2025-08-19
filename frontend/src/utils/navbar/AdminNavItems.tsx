@@ -1,4 +1,4 @@
-import { Home, Info, ShoppingCart, TruckElectric } from "lucide-react";
+import { Home,  ShoppingCart } from "lucide-react";
 
 
 

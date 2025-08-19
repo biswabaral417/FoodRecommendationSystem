@@ -7,7 +7,7 @@ import ModifyFoods from '../modals/modifyFoodModal/ModifyFoods'
 
 const Products: React.FC = () => {
   const { data, error, isLoading } = useAllFoods()
-  const { modalWrapperVis, setModalWrapperVis } = useAppContext()
+  const {  setModalWrapperVis } = useAppContext()
 
 
 

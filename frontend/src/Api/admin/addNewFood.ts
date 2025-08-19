@@ -33,6 +33,7 @@ const addNewFood = async (payload: AddFoodPayload) => {
 export const addFood = async (data: AddFoodPayload) => {
     try {
         const json = await addNewFood(data);
+        if(json) window.alert("success")
         return json;
     } catch (error) {
         console.error("Failed to add food:", error);

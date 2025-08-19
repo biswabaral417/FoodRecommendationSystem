@@ -42,13 +42,9 @@ export const handleAddFood = ({ formData, toggle, selTags, selWeatherTags }: Han
 
   // TODO: send `payload` to the backend
   console.log("Payload to submit:", payload);
+  
   addFood(payload)
+  toggle()
 
-  // Close the modal/form
-  /* The `toggle()` function is a callback function that is passed as a parameter to the
-  `handleAddFood` function. In this context, `toggle()` is used to close a modal or form after the
-  food data has been submitted. When `toggle()` is called, it triggers the action to close the modal
-  or form interface, providing a way to toggle the visibility of the form or modal between open and
-  closed states. */
-  // toggle();
+
 };

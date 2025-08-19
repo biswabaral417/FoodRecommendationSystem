@@ -2,7 +2,7 @@ import React from 'react';
 import { NavLink as RouterNavLink } from 'react-router-dom';
 import type { NavLinkProps } from 'react-router-dom';
 
-const NavLink = ({ children, className = '', ...props }: NavLinkProps) => {
+const NavLink: React.FC<NavLinkProps> = ({ children, className = '', ...props }) => {
     return (
         <RouterNavLink
             {...props}
