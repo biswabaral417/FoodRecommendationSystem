@@ -8,9 +8,10 @@ import orderRoutes from './orderRoutes'
 const router = Router()
 
 router.use('/foods', foodroutes)
-router.use('/admin',adminRoutes)
+router.use('/admin', adminRoutes)
 router.use('/auth', authRoutes)
-router.use('/order',orderRoutes)
+router.use('/order', orderRoutes)
+router.get('/test_conn', (req, res) => {res.status(200).json({ success: "connected" })})
 
 // router.use('esewa', esewaRoutes)
 

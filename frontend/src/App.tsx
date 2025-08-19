@@ -11,12 +11,13 @@ import ModalWrapper from "./core/components/atoms/wrapper/ModalWrapper";
 
 const App: React.FC<{}> = () => {
   const { localUser } = useAuth()
+  
   const { modalWrapperVis } = useAppContext()
   
 
   const provideRoutes = () => {
     // const [isAdmin, setIsAdmin] = useState<boolean>(true)
-    const [isAdmin] = useState<boolean>(true)
+    const [isAdmin] = useState<boolean>(false)
     if (isAdmin === true) {
       return [...adminRoutes];
     }

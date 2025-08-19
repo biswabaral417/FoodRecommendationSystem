@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useEffect, useState } from 'react'
 import type { User } from '../Types/UserDetails'
 import { verifyRefresh } from '../Api/auth/auth'
+import { test_conn } from '../Api/testConnect';
 
 const AuthContext = createContext<{
     localUser: User | null;
@@ -41,6 +42,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     // Verify refresh token to maintain persistent login
     useEffect(() => {
         console.log('AuthProvider mounted, checking refresh token...');
+        test_conn()
         const checkRefresh = async () => {
             try {
                 console.log('Checking refresh token...');
