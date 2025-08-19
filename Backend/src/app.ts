@@ -6,9 +6,12 @@ import cookieParser from 'cookie-parser';
 const app = express();
 app.use(express.json());
 app.use(cors({
-    origin: 'http://localhost:5173', // Replace with your frontend URL
-    credentials: true                // Allow credentials (cookies) to be sent
-}))
+  origin: [
+    'http://localhost:5173',                // local dev
+    'https://food-recommendation-system-pi.vercel.app/' // deployed frontend
+  ],
+  credentials: true, // allow cookies
+}));
 
 app.use(cookieParser());
 // app.use(sessionMiddleware)
