@@ -1,18 +1,26 @@
-# Use Node.js image
+# Use Node.js 18
 FROM node:18
 
-# Create app directory
+# Set working directory
 WORKDIR /app
 
-# Install dependencies
+# Copy package.json & package-lock.json
 COPY package*.json ./
-RUN npm install
 
-# Copy the rest of the code
+# Install dependencies
+RUN npm install --production
+
+# Copy the rest of the source code
 COPY . .
 
 # Compile TypeScript
 RUN npm run build
+
+# Copy SQL files into dist so backend can read them
+COPY ./db/queries ./dist/db/queries
+
+# Expose the port (optional, for clarity)
+EXPOSE 5000
 
 # Start the app
 CMD ["node", "dist/index.js"]
