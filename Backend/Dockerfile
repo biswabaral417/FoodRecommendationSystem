@@ -17,7 +17,7 @@ COPY . .
 RUN npm run build
 
 # Copy SQL files into dist so backend can read them
-COPY ./db/queries ./dist/db/queries
+COPY ./src/db/queries ./dist/db/queries
 
 # Expose the port (optional, for clarity)
 EXPOSE 5000
