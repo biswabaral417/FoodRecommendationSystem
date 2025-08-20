@@ -40,14 +40,14 @@ export const verify_refresh_token = async (req: Request, res: Response): Promise
         res.cookie('accessToken', accessToken, {
             httpOnly: true,
             secure: process.env.NODE_ENV === 'production',
-            sameSite: 'lax',
+            sameSite: 'none',
             maxAge: 1000 * 60 * 15, // 15 minutes
         });
 
         res.cookie('refreshToken', newRefreshToken, {
             httpOnly: true,
             secure: process.env.NODE_ENV === 'production',
-            sameSite: 'lax',
+            sameSite: 'none',
             maxAge: 1000 * 60 * 60 * 24 * 7, // 7 days
         });
 

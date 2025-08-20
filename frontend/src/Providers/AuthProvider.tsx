@@ -47,6 +47,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
             try {
                 console.log('Checking refresh token...');
                 const response = await verifyRefresh();
+                console.log('Refresh token response:', response);
                 if (response.loggedIn && response.user) {
                     const updatedUser: User = {
                         currentSession: localUser?.currentSession || { cart: [], wishlist: [] },
